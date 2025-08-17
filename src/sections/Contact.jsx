@@ -11,13 +11,16 @@ export default function Contact() {
     e.preventDefault();
     setLoading(true);
     setStatus(null);
+
     try {
-      const res = await fetch("POST https://portfolio-backend-vuui.onrender.com/api/contact
-", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        "https://portfolio-backend-vuui.onrender.com/api/contact",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
       const data = await res.json();
 
@@ -25,10 +28,16 @@ export default function Contact() {
         setStatus({ type: "success", message: data.message });
         setForm({ name: "", email: "", message: "" });
       } else {
-        setStatus({ type: "error", message: data.message || "Failed, try again." });
+        setStatus({
+          type: "error",
+          message: data.message || "Failed to send message. Try again.",
+        });
       }
     } catch (err) {
-      setStatus({ type: "error", message: "Failed, try again." });
+      setStatus({
+        type: "error",
+        message: "Network error. Please try again later.",
+      });
     } finally {
       setLoading(false);
     }
@@ -48,12 +57,20 @@ export default function Contact() {
             </p>
             <div className="social-icons">
               <a href="mailto:pusalakotesh08@gmail.com">
-              <FaEnvelope />
+                <FaEnvelope />
               </a>
-              <a href="https://www.linkedin.com/in/pusalakotesh" target="_blank" rel="noreferrer">
+              <a
+                href="https://www.linkedin.com/in/pusalakotesh"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FaLinkedin />
               </a>
-              <a href="https://github.com/KoteshPusala" target="_blank" rel="noreferrer">
+              <a
+                href="https://github.com/KoteshPusala"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FaGithub />
               </a>
             </div>
@@ -104,7 +121,11 @@ export default function Contact() {
                     {loading ? "Sending..." : "Send Message"}
                   </Button>
                   {status && (
-                    <span className={status.type === "success" ? "text-success" : "text-danger"}>
+                    <span
+                      className={
+                        status.type === "success" ? "text-success" : "text-danger"
+                      }
+                    >
                       {status.message}
                     </span>
                   )}
