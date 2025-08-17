@@ -12,7 +12,8 @@ export default function Contact() {
     setLoading(true);
     setStatus(null);
     try {
-      const res = await fetch("https://portfolio-backend-vuui.onrender.com", {
+      const res = await fetch("POST https://portfolio-backend-vuui.onrender.com/api/contact
+", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
